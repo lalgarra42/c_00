@@ -1,0 +1,357 @@
+diff --git a/ccopts b/ccopts
+new file mode 100644
+index 0000000..e78267d
+--- /dev/null
++++ b/ccopts
+@@ -0,0 +1 @@
++-Wall -Wextra -Werror 
+diff --git a/ex07/ft_rev_int_tab.c b/ex07/ft_rev_int_tab.c
+index 5606019..cbdd81a 100644
+--- a/ex07/ft_rev_int_tab.c
++++ b/ex07/ft_rev_int_tab.c
+@@ -6,22 +6,10 @@
+ /*   By: lalgarra <lalgarra@student.42madrid.com>   +#+  +:+       +#+        */
+ /*                                                +#+#+#+#+#+   +#+           */
+ /*   Created: 2025/07/13 09:51:23 by lalgarra          #+#    #+#             */
+-/*   Updated: 2025/07/13 13:48:33 by lalgarra         ###   ########.fr       */
++/*   Updated: 2025/07/13 14:07:57 by lalgarra         ###   ########.fr       */
+ /*                                                                            */
+ /* ************************************************************************** */
+-
+-/*
+-  Intercambia el contenido de dos enteros cuyas direcciones se reciben
+-como parámetro
+-*/
+-void	ft_swap(int *a, int *b)
+-{
+-	int	nbr;
+-
+-	nbr = *a;
+-	*a = *b;
+-	*b = nbr;
+-}
++#include "../ft_swap.h"
+ 
+ /*
+   Invierte un array de int (el primer elemento va el último, etc.).
+diff --git a/ex08/ft_sort_int_tab.c b/ex08/ft_sort_int_tab.c
+index 5d558b1..c0ac3d9 100644
+--- a/ex08/ft_sort_int_tab.c
++++ b/ex08/ft_sort_int_tab.c
+@@ -6,22 +6,10 @@
+ /*   By: lalgarra <lalgarra@student.42madrid.com>   +#+  +:+       +#+        */
+ /*                                                +#+#+#+#+#+   +#+           */
+ /*   Created: 2025/07/13 09:51:23 by lalgarra          #+#    #+#             */
+-/*   Updated: 2025/07/13 15:08:34 by lalgarra         ###   ########.fr       */
++/*   Updated: 2025/07/13 15:10:18 by lalgarra         ###   ########.fr       */
+ /*                                                                            */
+ /* ************************************************************************** */
+-
+-/*
+-  Intercambia el contenido de dos enteros cuyas direcciones se reciben
+-como parámetro
+-*/
+-void	ft_swap(int *a, int *b)
+-{
+-	int	nbr;
+-
+-	nbr = *a;
+-	*a = *b;
+-	*b = nbr;
+-}
++#include "../ft_swap.h"
+ 
+ /*
+   Intercambia el contenido de dos enteros cuyas direcciones se reciben
+diff --git a/ft_swap.c b/ft_swap.c
+new file mode 100644
+index 0000000..4a34a8f
+--- /dev/null
++++ b/ft_swap.c
+@@ -0,0 +1,27 @@
++/* ************************************************************************** */
++/*                                                                            */
++/*                                                        :::      ::::::::   */
++/*   ft_swap.c                                          :+:      :+:    :+:   */
++/*                                                    +:+ +:+         +:+     */
++/*   By: lalgarra <lalgarra@student.42madrid.com>   +#+  +:+       +#+        */
++/*                                                +#+#+#+#+#+   +#+           */
++/*   Created: 2025/07/13 14:04:32 by lalgarra          #+#    #+#             */
++/*   Updated: 2025/07/13 14:04:59 by lalgarra         ###   ########.fr       */
++/*                                                                            */
++/* ************************************************************************** */
++
++#ifndef FT_SWAP_DEF
++#define FT_SWAP_DEF 1
++/*
++  Intercambia el contenido de dos enteros cuyas direcciones se reciben
++como parámetro
++*/
++void    ft_swap(int *a, int *b) 
++{
++    int nbr;
++
++    nbr = *a; 
++    *a = *b; 
++    *b = nbr;
++}
++#endif /* FT_SWAP_DEF */
+diff --git a/ft_swap.h b/ft_swap.h
+new file mode 100644
+index 0000000..04d1914
+--- /dev/null
++++ b/ft_swap.h
+@@ -0,0 +1,21 @@
++/* ************************************************************************** */
++/*                                                                            */
++/*                                                        :::      ::::::::   */
++/*   ft_swap.h                                          :+:      :+:    :+:   */
++/*                                                    +:+ +:+         +:+     */
++/*   By: lalgarra <lalgarra@student.42madrid.com>   +#+  +:+       +#+        */
++/*                                                +#+#+#+#+#+   +#+           */
++/*   Created: 2025/07/13 14:03:41 by lalgarra          #+#    #+#             */
++/*   Updated: 2025/07/13 14:04:22 by lalgarra         ###   ########.fr       */
++/*                                                                            */
++/* ************************************************************************** */
++
++#ifndef FT_SWAP_DEF
++#define FT_SWAP_DEF 1
++/*
++  Intercambia el contenido de dos enteros cuyas direcciones se reciben
++como parámetro
++*/
++void    ft_swap(int *a, int *b);
++#endif /* FT_SWAP_DEF */
++
+diff --git a/main.c b/main.c
+new file mode 100644
+index 0000000..049b483
+--- /dev/null
++++ b/main.c
+@@ -0,0 +1,226 @@
++/* ************************************************************************** */
++/*                                                                            */
++/*                                                        :::      ::::::::   */
++/*   main.c                                             :+:      :+:    :+:   */
++/*                                                    +:+ +:+         +:+     */
++/*   By: lalgarra <lalgarra@student.42madrid.com>   +#+  +:+       +#+        */
++/*                                                +#+#+#+#+#+   +#+           */
++/*   Created: 2025/07/09 16:44:38 by lalgarra          #+#    #+#             */
++/*   Updated: 2025/07/13 15:06:46 by lalgarra         ###   ########.fr       */
++/*                                                                            */
++/* ************************************************************************** */
++#include <unistd.h>
++
++void	ft_ft(int *nbr);
++void	ft_ultimate_ft(int *********nbr);
++void	ft_swap(int *a, int *b);
++void	ft_div_mod(int a, int b, int *div, int *mod);
++void	ft_ultimate_div_mod(int *a, int *b);
++void	ft_putstr(char *str);
++int		ft_strlen(char *str);
++void	ft_rev_int_tab(int *tab, int size);
++void	ft_sort_int_tab(int *tab, int size);
++void    ft_swap(int *a, int *b);
++
++/*
++  Función aux. para volcar a stdout un valor entero como una secuencia de 2
++caracteres, siendo cada carácter un dígito. P.ej., 5 se  vuelca como 05.
++
++Entrada:
++        -       n: valor a volcar; debe ser un entero entre 0 y 99.
++*/
++void    ft_write_int(int n)
++{
++        char    chr;
++        int             offset;
++
++        offset = 48;
++        chr = offset + (n / 10);
++        write(1, &chr, 1);
++        chr = offset + (n % 10);
++        write(1, &chr, 1);
++}
++
++void	test_ex00(void)
++{
++	int		nbr;
++
++	ft_putstr("==== ex00:\n");
++	nbr = 0;
++	ft_ft(&nbr);
++	ft_write_int(nbr);
++	ft_putstr("\n");
++}
++
++void	test_ex01(void)
++{
++	int		nbr;
++	int		*ptr1;
++	int		**ptr2;
++	int		***ptr3;
++	int		****ptr4;
++	int		*****ptr5;
++	int		******ptr6;
++	int		*******ptr7;
++	int		********ptr8;
++	int		*********ptr9;
++
++	ft_putstr("==== ex01:\n");
++	nbr = 0;
++	ptr1 = &nbr;
++	ptr2 = &ptr1;
++	ptr3 = &ptr2;
++	ptr4 = &ptr3;
++	ptr5 = &ptr4;
++	ptr6 = &ptr5;
++	ptr7 = &ptr6;
++	ptr8 = &ptr7;
++	ptr9 = &ptr8;
++	ft_ultimate_ft(ptr9);
++	ft_write_int(nbr);
++	ft_putstr("\n");
++}
++
++void	test_ex02(void)
++{
++	int		nbr;
++	int		nbr2;
++
++	ft_putstr("==== ex02:\n");
++	nbr = 1;
++	nbr2 = 2;
++	ft_write_int(nbr);
++	ft_putstr("\n");
++	ft_write_int(nbr2);
++	ft_putstr("\n");
++	ft_swap(&nbr, &nbr2);
++	ft_write_int(nbr);
++	ft_putstr("\n");
++	ft_write_int(nbr2);
++	ft_putstr("\n");
++}
++
++void	test_ex03(void)
++{
++	int		a;
++	int		b;
++	int		div;
++	int		mod;
++
++	ft_putstr("==== ex03:\n");
++	a = 25;
++	b = 3;
++	ft_putstr("a = ");
++	ft_write_int(a);
++	ft_putstr("; b = ");
++	ft_write_int(b);
++	ft_putstr("\n");
++	ft_div_mod(a, b, &div, &mod);
++	ft_putstr("div = ");
++	ft_write_int(div);
++	ft_putstr("; mod = ");
++	ft_write_int(mod);
++	ft_putstr("\n");
++}
++
++void	test_ex04(void)
++{
++	int		a;
++	int		b;
++
++	ft_putstr("==== ex04:\n");
++	a = 25;
++	b = 3;
++	ft_putstr("a = ");
++	ft_write_int(a);
++	ft_putstr("; b = ");
++	ft_write_int(b);
++	ft_putstr("\n");
++	ft_ultimate_div_mod(&a, &b);
++	ft_putstr("div = ");
++	ft_write_int(a);
++	ft_putstr("; mod = ");
++	ft_write_int(b);
++	ft_putstr("\n");
++}
++
++void	test_ex06(void)
++{
++	ft_putstr("==== ex06:\n");
++	ft_putstr("Para \"01234567890\" da ");
++	ft_write_int(ft_strlen("0123456789"));
++	ft_putstr("\n");
++}
++
++void	test_ex07(void)
++{
++	int	size;
++	int	tab[5];
++	int	idx;
++
++	size = 5;
++	idx = 0;
++	while (idx < size)
++	{
++		tab[idx] = idx + 1;
++		idx++;
++	}
++	ft_putstr("==== ex07:\n");
++	ft_rev_int_tab(&tab[0], size);
++	idx = 0;
++	while (idx < size)
++	{
++		ft_write_int(tab[idx]);
++		ft_putstr(", ");
++		idx++;
++	}
++	ft_putstr("\n");
++}
++
++void	test_ex08(void)
++{
++	int	size;
++	int	tab[5];
++	int	idx;
++
++	size = 5;
++	idx = 0;
++	while (idx < size)
++	{
++		tab[idx] = size - idx;
++		idx++;
++	}
++	ft_putstr("==== ex08:\n");
++	ft_putstr("Inicial:\n");
++	idx = 0;
++	while (idx < size)
++	{
++		ft_write_int(tab[idx]);
++		ft_putstr(", ");
++		idx++;
++	}
++	ft_putstr("\n");
++	ft_sort_int_tab(&tab[0], size);
++	ft_putstr("Final:\n");
++	idx = 0;
++	while (idx < size)
++	{
++		ft_write_int(tab[idx]);
++		ft_putstr(", ");
++		idx++;
++	}
++	ft_putstr("\n");
++}
++
++int	main(void)
++{
++	test_ex00();
++	test_ex01();
++	test_ex02();
++	test_ex03();
++	test_ex04();
++	test_ex06();
++	test_ex07();
++	test_ex08();
++	return (0);
++}
