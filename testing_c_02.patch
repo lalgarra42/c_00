@@ -1,224 +1,326 @@
 diff --git a/ccopts b/ccopts
-new file mode 100644
-index 0000000..e78267d
---- /dev/null
-+++ b/ccopts
-@@ -0,0 +1 @@
-+-Wall -Wextra -Werror 
+deleted file mode 100644
+index e78267d..0000000
+--- a/ccopts
++++ /dev/null
+@@ -1 +0,0 @@
+--Wall -Wextra -Werror 
 diff --git a/main.c b/main.c
-new file mode 100644
-index 0000000..46fdefe
---- /dev/null
-+++ b/main.c
-@@ -0,0 +1,211 @@
-+/* ************************************************************************** */
-+/*                                                                            */
-+/*                                                        :::      ::::::::   */
-+/*   main.c                                             :+:      :+:    :+:   */
-+/*                                                    +:+ +:+         +:+     */
-+/*   By: lalgarra <lalgarra@student.42madrid.com>   +#+  +:+       +#+        */
-+/*                                                +#+#+#+#+#+   +#+           */
-+/*   Created: 2025/07/09 16:44:38 by lalgarra          #+#    #+#             */
-+/*   Updated: 2025/07/14 22:11:02 by lalgarra         ###   ########.fr       */
-+/*                                                                            */
-+/* ************************************************************************** */
-+#include <unistd.h>
-+#include <stdio.h>
-+
-+char	*ft_strcpy(char *dest, char *src);
-+char	*ft_strncpy(char *dest, char *src, unsigned int n);
-+int		ft_str_is_alpha(char *str);
-+int		ft_str_is_numeric(char *str);
-+int		ft_str_is_lowercase(char *str);
-+int		ft_str_is_uppercase(char *str);
-+int		ft_str_is_printable(char *str);
-+char	*ft_strupcase(char *str);
-+
-+/*
-+  Función aux. para volcar a stdout un valor entero como una secuencia de 2
-+caracteres, siendo cada carácter un dígito. P.ej., 5 se  vuelca como 05.
-+
-+Entrada:
-+        -       n: valor a volcar; debe ser un entero entre 0 y 99.
-+*/
-+void	ft_write_int(int n)
-+{
-+	char	chr;
-+	int		offset;
-+
-+	offset = 48;
-+	chr = offset + (n / 10);
-+	write(1, &chr, 1);
-+	chr = offset + (n % 10);
-+	write(1, &chr, 1);
-+}
-+
-+void	ft_putstr(char *str)
-+{
-+	while (*str != '\0')
-+		write(1, str++, 1);
-+}
-+
-+void	test_ex00(void)
-+{
-+	char	str[350];
-+	char	*res;
-+
-+	ft_putstr("==== ex00:\n");
-+	res = ft_strcpy(str, "mi texto de ejemplo");
-+	ft_putstr("Texto en str (array):\n");
-+	ft_putstr(str);
-+	ft_putstr("\n");
-+	ft_putstr("Texto en res (puntero):\n");
-+	ft_putstr(res);
-+	ft_putstr("\n");
-+	ft_putstr("\n");
-+}
-+
-+void	test_ex01(void)
-+{
-+	char	src[] = "Example string for test.";
-+	int		n;
-+	char	str[350];
-+	char	*res;
-+
-+	ft_putstr("==== ex01:\n");
-+	n = 0;
-+	while (n < 350)
-+		str[n++] = 'A';
-+	n = 3;
-+	printf("texto en src: \"%s\"; n=%i\n", src, n);
-+	res = ft_strncpy(str, src, n);
-+	printf("texto en str: \"%s\"\n", str);
-+	printf("texto en res: \"%s\"\n", res);
-+	printf("Carácteres en str[350]: \n");
-+	n = 0;
-+	while (n < 350)
-+	{
-+		printf("pos. %03i: %03u\n", n, str[n]);
-+		n++;
-+	}
-+	n = 300;
-+	printf("texto en src: \"%s\"; n=%i\n", src, n);
-+	res = ft_strncpy(str, src, n);
-+	printf("texto en str: \"%s\"\n", str);
-+	printf("texto en res: \"%s\"\n", res);
-+	printf("Carácteres en str[350]: \n");
-+	n = 0;
-+	while (n < 350)
-+	{
-+		printf("pos. %03i: %03u\n", n, str[n]);
-+		n++;
-+	}
-+	ft_putstr("\n");
-+}
-+
-+void	test_ex02(void)
-+{
-+	char	src[] = "Example string for test.";
-+
-+	ft_putstr("==== ex02:\n");
-+	printf("texto en src: \"%s\"; ft_str_is_alpha() retorna %i\n", src, ft_str_is_alpha(src));
-+	ft_strcpy(src, "aeioU");
-+	printf("texto en src: \"%s\"; ft_str_is_alpha() retorna %i\n", src, ft_str_is_alpha(src));
-+	ft_strcpy(src, "");
-+	printf("texto en src: \"%s\"; ft_str_is_alpha() retorna %i\n", src, ft_str_is_alpha(src));
-+	ft_strcpy(src, "ab1");
-+	printf("texto en src: \"%s\"; ft_str_is_alpha() retorna %i\n", src, ft_str_is_alpha(src));
-+	ft_putstr("\n");
-+}
-+
-+void	test_ex03(void)
-+{
-+	char	src[] = "Example string for test.";
-+
-+	ft_putstr("==== ex03:\n");
-+	printf("texto en src: \"%s\"; ft_str_is_numeric() retorna %i\n", src, ft_str_is_numeric(src));
-+	ft_strcpy(src, "1234");
-+	printf("texto en src: \"%s\"; ft_str_is_numeric() retorna %i\n", src, ft_str_is_numeric(src));
-+	ft_strcpy(src, "");
-+	printf("texto en src: \"%s\"; ft_str_is_numeric() retorna %i\n", src, ft_str_is_numeric(src));
-+	ft_strcpy(src, "1b1");
-+	printf("texto en src: \"%s\"; ft_str_is_numeric() retorna %i\n", src, ft_str_is_numeric(src));
-+	ft_putstr("\n");
-+}
-+
-+void	test_ex04(void)
-+{
-+	char	src[] = "Example string for test.";
-+
-+	ft_putstr("==== ex04:\n");
-+	printf("texto en src: \"%s\"; ft_str_is_lowercase() retorna %i\n", src, ft_str_is_lowercase(src));
-+	ft_strcpy(src, "abcdefghijklmnopqrstuvwxyz");
-+	printf("texto en src: \"%s\"; ft_str_is_lowercase() retorna %i\n", src, ft_str_is_lowercase(src));
-+	ft_strcpy(src, "");
-+	printf("texto en src: \"%s\"; ft_str_is_lowercase() retorna %i\n", src, ft_str_is_lowercase(src));
-+	ft_strcpy(src, "abA");
-+	printf("texto en src: \"%s\"; ft_str_is_lowercase() retorna %i\n", src, ft_str_is_lowercase(src));
-+	ft_putstr("\n");
-+}
-+
-+void	test_ex05(void)
-+{
-+	char	src[] = "Example string for test.";
-+
-+	ft_putstr("==== ex05:\n");
-+	printf("texto en src: \"%s\"; ft_str_is_uppercase() retorna %i\n", src, ft_str_is_uppercase(src));
-+	ft_strcpy(src, "ABCDEFGHIJKLMNOPQRSTUVWXYZ");
-+	printf("texto en src: \"%s\"; ft_str_is_uppercase() retorna %i\n", src, ft_str_is_uppercase(src));
-+	ft_strcpy(src, "");
-+	printf("texto en src: \"%s\"; ft_str_is_uppercase() retorna %i\n", src, ft_str_is_uppercase(src));
-+	ft_strcpy(src, "ABc");
-+	printf("texto en src: \"%s\"; ft_str_is_uppercase() retorna %i\n", src, ft_str_is_uppercase(src));
-+	ft_putstr("\n");
-+}
-+
-+void	test_ex06(void)
-+{
-+	char	src[] = "Example string for test.";
-+
-+	ft_putstr("==== ex06:\n");
-+	src[5] = 32;
-+	src[2] = 127;
-+	printf("texto en src: \"%s\"; ft_str_is_printable() retorna %i\n", src, ft_str_is_printable(src));
-+	ft_strcpy(src, "ABCDEFGHIJKLMNOPQRSTUVWXYZ");
-+	printf("texto en src: \"%s\"; ft_str_is_printable() retorna %i\n", src, ft_str_is_printable(src));
-+	ft_strcpy(src, "");
-+	printf("texto en src: \"%s\"; ft_str_is_printable() retorna %i\n", src, ft_str_is_printable(src));
-+	ft_strcpy(src, "ABCDEFGHIJKLMNOPQRSTUVWXYZ");
-+	src[5] = 31;
-+	printf("texto en src: \"%s\"; ft_str_is_printable() retorna %i\n", src, ft_str_is_printable(src));
-+	ft_putstr("\n");
-+}
-+
-+void	test_ex07(void)
-+{
-+	char	src[] = "Example string for test.";
-+
-+	ft_putstr("==== ex07:\n");
-+	printf("texto en src: \"%s\"", src);
-+	printf("; ft_strupcase() retorna \"%s\"\n", ft_strupcase(src));
-+	ft_strcpy(src, "abcdefghijklmnopqrstuvwxyz");
-+	printf("texto en src: \"%s\"", src);
-+	printf("; ft_strupcase() retorna \"%s\"\n", ft_strupcase(src));
-+	ft_strcpy(src, "");
-+	printf("texto en src: \"%s\"", src);
-+	printf("; ft_strupcase() retorna \"%s\"\n", ft_strupcase(src));
-+	ft_strcpy(src, "abcdefghijklmnopqrstuvwxyz");
-+	printf("texto en src: \"%s\"", src);
-+	printf("; ft_strupcase() retorna \"%s\"\n", ft_strupcase(src));
-+	ft_putstr("\n");
-+}
-+
-+int	main(void)
-+{
-+	test_ex00();
-+	test_ex01();
-+	test_ex02();
-+	test_ex03();
-+	test_ex04();
-+	test_ex05();
-+	test_ex06();
-+	test_ex07();
-+	return (0);
-+}
+deleted file mode 100644
+index f4ca5fc..0000000
+--- a/main.c
++++ /dev/null
+@@ -1,313 +0,0 @@
+-/* ************************************************************************** */
+-/*                                                                            */
+-/*                                                        :::      ::::::::   */
+-/*   main.c                                             :+:      :+:    :+:   */
+-/*                                                    +:+ +:+         +:+     */
+-/*   By: lalgarra <lalgarra@student.42madrid.com>   +#+  +:+       +#+        */
+-/*                                                +#+#+#+#+#+   +#+           */
+-/*   Created: 2025/07/09 16:44:38 by lalgarra          #+#    #+#             */
+-/*   Updated: 2025/07/15 22:36:10 by lalgarra         ###   ########.fr       */
+-/*                                                                            */
+-/* ************************************************************************** */
+-#include <unistd.h>
+-#include <stdio.h>
+-
+-char	*ft_strcpy(char *dest, char *src);
+-char	*ft_strncpy(char *dest, char *src, unsigned int n);
+-int		ft_str_is_alpha(char *str);
+-int		ft_str_is_numeric(char *str);
+-int		ft_str_is_lowercase(char *str);
+-int		ft_str_is_uppercase(char *str);
+-int		ft_str_is_printable(char *str);
+-char	*ft_strupcase(char *str);
+-char	*ft_strlowcase(char *str);
+-char	*ft_strcapitalize(char *str);
+-unsigned int	ft_strlcpy(char *dest, char *src, unsigned int size);
+-void	ft_putstr_non_printable(char *str);
+-
+-/*
+-  Función aux. para volcar a stdout un valor entero como una secuencia de 2
+-caracteres, siendo cada carácter un dígito. P.ej., 5 se  vuelca como 05.
+-
+-Entrada:
+-        -       n: valor a volcar; debe ser un entero entre 0 y 99.
+-*/
+-void	ft_write_int(int n)
+-{
+-	char	chr;
+-	int		offset;
+-
+-	offset = 48;
+-	chr = offset + (n / 10);
+-	write(1, &chr, 1);
+-	chr = offset + (n % 10);
+-	write(1, &chr, 1);
+-}
+-
+-void	ft_putstr(char *str)
+-{
+-	while (*str != '\0')
+-		write(1, str++, 1);
+-}
+-
+-void	test_ex00(void)
+-{
+-	char	str[350];
+-	char	*res;
+-
+-	ft_putstr("==== ex00:\n");
+-	res = ft_strcpy(str, "mi texto de ejemplo");
+-	ft_putstr("Texto en str (array):\n");
+-	ft_putstr(str);
+-	ft_putstr("\n");
+-	ft_putstr("Texto en res (puntero):\n");
+-	ft_putstr(res);
+-	ft_putstr("\n");
+-	ft_putstr("\n");
+-}
+-
+-void	test_ex01(void)
+-{
+-	char	src[] = "Example string for test.";
+-	int		n;
+-	char	str[350];
+-	char	*res;
+-
+-	ft_putstr("==== ex01:\n");
+-	n = 0;
+-	while (n < 350)
+-		str[n++] = 'A';
+-	n = 3;
+-	printf("texto en src: \"%s\"; n=%i\n", src, n);
+-	res = ft_strncpy(str, src, n);
+-	printf("texto en str: \"%s\"\n", str);
+-	printf("texto en res: \"%s\"\n", res);
+-	printf("Carácteres en str[350]: \n");
+-	n = 0;
+-	while (n < 350)
+-	{
+-		printf("pos. %03i: %03u\n", n, str[n]);
+-		n++;
+-	}
+-	n = 300;
+-	printf("texto en src: \"%s\"; n=%i\n", src, n);
+-	res = ft_strncpy(str, src, n);
+-	printf("texto en str: \"%s\"\n", str);
+-	printf("texto en res: \"%s\"\n", res);
+-	printf("Carácteres en str[350]: \n");
+-	n = 0;
+-	while (n < 350)
+-	{
+-		printf("pos. %03i: %03u\n", n, str[n]);
+-		n++;
+-	}
+-	ft_putstr("\n");
+-}
+-
+-void	test_ex02(void)
+-{
+-	char	src[] = "Example string for test.";
+-
+-	ft_putstr("==== ex02:\n");
+-	printf("texto en src: \"%s\"; ft_str_is_alpha() retorna %i\n", src, ft_str_is_alpha(src));
+-	ft_strcpy(src, "aeioU");
+-	printf("texto en src: \"%s\"; ft_str_is_alpha() retorna %i\n", src, ft_str_is_alpha(src));
+-	ft_strcpy(src, "");
+-	printf("texto en src: \"%s\"; ft_str_is_alpha() retorna %i\n", src, ft_str_is_alpha(src));
+-	ft_strcpy(src, "ab1");
+-	printf("texto en src: \"%s\"; ft_str_is_alpha() retorna %i\n", src, ft_str_is_alpha(src));
+-	ft_putstr("\n");
+-}
+-
+-void	test_ex03(void)
+-{
+-	char	src[] = "Example string for test.";
+-
+-	ft_putstr("==== ex03:\n");
+-	printf("texto en src: \"%s\"; ft_str_is_numeric() retorna %i\n", src, ft_str_is_numeric(src));
+-	ft_strcpy(src, "1234");
+-	printf("texto en src: \"%s\"; ft_str_is_numeric() retorna %i\n", src, ft_str_is_numeric(src));
+-	ft_strcpy(src, "");
+-	printf("texto en src: \"%s\"; ft_str_is_numeric() retorna %i\n", src, ft_str_is_numeric(src));
+-	ft_strcpy(src, "1b1");
+-	printf("texto en src: \"%s\"; ft_str_is_numeric() retorna %i\n", src, ft_str_is_numeric(src));
+-	ft_putstr("\n");
+-}
+-
+-void	test_ex04(void)
+-{
+-	char	src[] = "Example string for test.";
+-
+-	ft_putstr("==== ex04:\n");
+-	printf("texto en src: \"%s\"; ft_str_is_lowercase() retorna %i\n", src, ft_str_is_lowercase(src));
+-	ft_strcpy(src, "abcdefghijklmnopqrstuvwxyz");
+-	printf("texto en src: \"%s\"; ft_str_is_lowercase() retorna %i\n", src, ft_str_is_lowercase(src));
+-	ft_strcpy(src, "");
+-	printf("texto en src: \"%s\"; ft_str_is_lowercase() retorna %i\n", src, ft_str_is_lowercase(src));
+-	ft_strcpy(src, "abA");
+-	printf("texto en src: \"%s\"; ft_str_is_lowercase() retorna %i\n", src, ft_str_is_lowercase(src));
+-	ft_putstr("\n");
+-}
+-
+-void	test_ex05(void)
+-{
+-	char	src[] = "Example string for test.";
+-
+-	ft_putstr("==== ex05:\n");
+-	printf("texto en src: \"%s\"; ft_str_is_uppercase() retorna %i\n", src, ft_str_is_uppercase(src));
+-	ft_strcpy(src, "ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+-	printf("texto en src: \"%s\"; ft_str_is_uppercase() retorna %i\n", src, ft_str_is_uppercase(src));
+-	ft_strcpy(src, "");
+-	printf("texto en src: \"%s\"; ft_str_is_uppercase() retorna %i\n", src, ft_str_is_uppercase(src));
+-	ft_strcpy(src, "ABc");
+-	printf("texto en src: \"%s\"; ft_str_is_uppercase() retorna %i\n", src, ft_str_is_uppercase(src));
+-	ft_putstr("\n");
+-}
+-
+-void	test_ex06(void)
+-{
+-	char	src[] = "Example string for test.";
+-
+-	ft_putstr("==== ex06:\n");
+-	src[5] = 32;
+-	src[2] = 127;
+-	printf("texto en src: \"%s\"; ft_str_is_printable() retorna %i\n", src, ft_str_is_printable(src));
+-	ft_strcpy(src, "ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+-	printf("texto en src: \"%s\"; ft_str_is_printable() retorna %i\n", src, ft_str_is_printable(src));
+-	ft_strcpy(src, "");
+-	printf("texto en src: \"%s\"; ft_str_is_printable() retorna %i\n", src, ft_str_is_printable(src));
+-	ft_strcpy(src, "ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+-	src[5] = 31;
+-	printf("texto en src: \"%s\"; ft_str_is_printable() retorna %i\n", src, ft_str_is_printable(src));
+-	ft_putstr("\n");
+-}
+-
+-void	test_ex07(void)
+-{
+-	char	src[] = "Example string for test.";
+-
+-	ft_putstr("==== ex07:\n");
+-	printf("texto en src: \"%s\"", src);
+-	printf("; ft_strupcase() retorna \"%s\"\n", ft_strupcase(src));
+-	ft_strcpy(src, "abcdefghijklmnopqrstuvwxyz");
+-	printf("texto en src: \"%s\"", src);
+-	printf("; ft_strupcase() retorna \"%s\"\n", ft_strupcase(src));
+-	ft_strcpy(src, "");
+-	printf("texto en src: \"%s\"", src);
+-	printf("; ft_strupcase() retorna \"%s\"\n", ft_strupcase(src));
+-	ft_strcpy(src, "abcdefghijklmnopqrstuvwxyz");
+-	printf("texto en src: \"%s\"", src);
+-	printf("; ft_strupcase() retorna \"%s\"\n", ft_strupcase(src));
+-	ft_putstr("\n");
+-}
+-
+-void	test_ex08(void)
+-{
+-	char	src[] = "Example string for test.";
+-
+-	ft_putstr("==== ex08:\n");
+-	printf("texto en src: \"%s\"", src);
+-	printf("; ft_strlowcase() retorna \"%s\"\n", ft_strlowcase(src));
+-	ft_strcpy(src, "ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+-	printf("texto en src: \"%s\"", src);
+-	printf("; ft_strlowcase() retorna \"%s\"\n", ft_strlowcase(src));
+-	ft_strcpy(src, "");
+-	printf("texto en src: \"%s\"", src);
+-	printf("; ft_strlowcase() retorna \"%s\"\n", ft_strlowcase(src));
+-	ft_strcpy(src, "aBCDE 1234  ");
+-	printf("texto en src: \"%s\"", src);
+-	printf("; ft_strlowcase() retorna \"%s\"\n", ft_strlowcase(src));
+-	ft_putstr("\n");
+-}
+-
+-void	test_ex09(void)
+-{
+-	char	src[500] = "Example string for test.";
+-
+-	ft_putstr("==== ex09:\n");
+-	printf("texto en src: \"%s\"", src);
+-	printf("; ft_strcapitalize() retorna \"%s\"\n", ft_strcapitalize(src));
+-	ft_strcpy(src, "ABCDE FGHIJKL MNOPQ RSTUVWXYZ");
+-	printf("texto en src: \"%s\"", src);
+-	printf("; ft_strcapitalize() retorna \"%s\"\n", ft_strcapitalize(src));
+-	ft_strcpy(src, "");
+-	printf("texto en src: \"%s\"", src);
+-	printf("; ft_strcapitalize() retorna \"%s\"\n", ft_strcapitalize(src));
+-	ft_strcpy(src, "aBCDE a1234  ");
+-	printf("texto en src: \"%s\"", src);
+-	printf("; ft_strcapitalize() retorna \"%s\"\n", ft_strcapitalize(src));
+-	ft_strcpy(src, "salut, comment tu vas ? 42mots quarante-deux; cinquante+et+un");
+-	printf("texto en src: \"%s\"", src);
+-	printf("; ft_strcapitalize() retorna \"%s\"\n", ft_strcapitalize(src));
+-	ft_putstr("\n");
+-}
+-
+-void 	ft_print_chars(char *str, unsigned int count, char *prefix)
+-{
+-	unsigned int	idx;
+-
+-	idx = 0;
+-	while (idx < count /*&& str[idx]*/)
+-	{
+-		printf("%s%5u: %c\n", prefix, idx, str[idx]);
+-		idx++;
+-	}
+-}
+-
+-void	test_ex10(void)
+-{
+-	unsigned int	size;
+-	unsigned int	result;
+-	char			src[500] = "Example string for test.";
+-	char			dest[500] = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+-
+-	ft_putstr("==== ex10:\n");
+-	size = 5;
+-	printf("size: %u; texto en src: \"%s\"\n", size, src);
+-	result = ft_strlcpy(dest, src, size);
+-	printf("; ft_strlcpy() retorna %u; dest tiene: \"%s\"\n", result, dest);
+-	ft_print_chars(dest, size + 5, "\t");
+-	size = 25;
+-	printf("size: %u;\n", size);
+-	result = ft_strlcpy(dest, src, size);
+-	printf("; ft_strlcpy() retorna %u; dest tiene: \"%s\"\n", result, dest);
+-	ft_print_chars(dest, size + 5, "\t");
+-	size = 29;
+-	printf("size: %u;\n", size);
+-	result = ft_strlcpy(dest, src, size);
+-	printf("; ft_strlcpy() retorna %u; dest tiene: \"%s\"\n", result, dest);
+-	ft_print_chars(dest, size + 5, "\t");
+-	printf("\n\n");
+-}
+-
+-void	test_ex11(void)
+-{
+-	char	src[500] = "Coucou\ntu vas bien ?";
+-
+-	printf("==== ex11:\n");
+-	/*printf("Entrada: \"%s\"; salida:\"", src);*/
+-	ft_putstr_non_printable(src);
+-	printf("\n\n");
+-	ft_strcpy(src, "sigue CR\x0dy ahora ESCAPE\x1by BELL\x07");
+-	/*printf("Entrada: \"%s\"; salida:\"", src); */
+-	ft_putstr_non_printable(src);
+-	printf("\n\n");
+-	printf("\n\n");
+-}
+-
+-int	main(void)
+-{
+-	test_ex00();
+-	test_ex01();
+-	test_ex02();
+-	test_ex03();
+-	test_ex04();
+-	test_ex05();
+-	test_ex06();
+-	test_ex07();
+-	test_ex08();
+-	test_ex09();
+-	test_ex10();
+-	test_ex11();
+-	return (0);
+-}
