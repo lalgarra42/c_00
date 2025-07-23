@@ -1,0 +1,302 @@
+diff --git a/ccopts b/ccopts
+deleted file mode 100644
+index e78267d..0000000
+--- a/ccopts
++++ /dev/null
+@@ -1 +0,0 @@
+--Wall -Wextra -Werror 
+diff --git a/ex.h b/ex.h
+deleted file mode 100644
+index 233e8a0..0000000
+--- a/ex.h
++++ /dev/null
+@@ -1,21 +0,0 @@
+-/* ************************************************************************** */
+-/*                                                                            */
+-/*                                                        :::      ::::::::   */
+-/*   ex.h                                               :+:      :+:    :+:   */
+-/*                                                    +:+ +:+         +:+     */
+-/*   By: lalgarra <lalgarra@student.42madrid.com>   +#+  +:+       +#+        */
+-/*                                                +#+#+#+#+#+   +#+           */
+-/*   Created: 2025/07/09 16:44:38 by lalgarra          #+#    #+#             */
+-/*   Updated: 2025/07/17 23:59:03 by lalgarra         ###   ########.fr       */
+-/*                                                                            */
+-/* ************************************************************************** */
+-#ifndef EX_H
+-# define EX_H
+-
+-int				ft_strcmp(char *s1, char *s2);
+-int				ft_strncmp(char *s1, char *s2, unsigned int n);
+-char			*ft_strcat(char *dest, char *src);
+-char			*ft_strncat(char *dest, char *src, unsigned int nb);
+-char			*ft_strstr(char *str, char *to_find);
+-unsigned int	ft_strlcat(char *dest, char *src, unsigned int size);
+-#endif
+diff --git a/main.c b/main.c
+deleted file mode 100644
+index b626842..0000000
+--- a/main.c
++++ /dev/null
+@@ -1,262 +0,0 @@
+-/* ************************************************************************** */
+-/*                                                                            */
+-/*                                                        :::      ::::::::   */
+-/*   main.c                                             :+:      :+:    :+:   */
+-/*                                                    +:+ +:+         +:+     */
+-/*   By: lalgarra <lalgarra@student.42madrid.com>   +#+  +:+       +#+        */
+-/*                                                +#+#+#+#+#+   +#+           */
+-/*   Created: 2025/07/09 16:44:38 by lalgarra          #+#    #+#             */
+-/*   Updated: 2025/07/21 20:33:23 by lalgarra         ###   ########.fr       */
+-/*                                                                            */
+-/* ************************************************************************** */
+-#include <stdio.h>
+-#include <string.h>
+-#include "ex.h"
+-
+-void	test_ex00(void)
+-{
+-	char	str1[500];
+-	char	str2[500];
+-
+-	printf("==== ex00: ====\n");
+-	strcpy(str1, "ABC");
+-	strcpy(str2, "ABC");
+-	printf(
+-		"str1: \"%s\",str2: \"%s\" ft_strcmp(str1, str2)=%i; esperado 0\n",
+-		str1, str2, ft_strcmp(str1, str2));
+-	strcpy(str1, "ABC");
+-	strcpy(str2, "AB");
+-	printf(
+-		"str1: \"%s\",str2: \"%s\" ft_strcmp(str1, str2)=%i; esperado 67\n",
+-		str1, str2, ft_strcmp(str1, str2));
+-	strcpy(str1, "ABA");
+-	strcpy(str2, "ABZ");
+-	printf(
+-		"str1: \"%s\",str2: \"%s\" ft_strcmp(str1, str2)=%i, esperado -25\n",
+-		str1, str2, ft_strcmp(str1, str2));
+-	strcpy(str1, "ABJ");
+-	strcpy(str2, "ABC");
+-	printf(
+-		"str1: \"%s\",str2: \"%s\" ft_strcmp(str1, str2)=%i, esperado 7\n",
+-		str1, str2, ft_strcmp(str1, str2));
+-	strcpy(str1, "AB");
+-	strcpy(str2, "ABC");
+-	printf(
+-		"str1: \"%s\",str2: \"%s\" ft_strcmp(str1, str2)=%i; esperado -67\n",
+-		str1, str2, ft_strcmp(str1, str2));
+-	printf("\n\n");
+-	printf("\n\n");
+-}
+-
+-void	test_ex01(void)
+-{
+-	char			str1[500];
+-	char			str2[500];
+-	unsigned int	n;
+-
+-	printf("==== ex01: ====\n");
+-	strcpy(str1, "ABC");
+-	strcpy(str2, "AB");
+-	n = 3;
+-	printf("str1: \"%s\",str2: \"%s\", n:%u", str1, str2, n);
+-	printf("; ft_strncmp(str1, str2, n)=%i; esperado 67\n",
+-		ft_strncmp(str1, str2, n));
+-	printf("\tstrncmp(str1, str2, n)=%i - - - - \n", strncmp(str1, str2, n));
+-	strcpy(str1, "ABC");
+-	strcpy(str2, "AB");
+-	n = 2;
+-	printf("str1: \"%s\",str2: \"%s\", n:%u", str1, str2, n);
+-	printf("; ft_strncmp(str1, str2, n)=%i; esperado 0\n",
+-		ft_strncmp(str1, str2, n));
+-	printf("\tstrncmp(str1, str2, n)=%i - - - - \n", strncmp(str1, str2, n));
+-	printf("\n\n");
+-	strcpy(str1, "ABCxxxxxxxxxxxxxxxxxxxx");
+-	strcpy(str2, "ABCxxxxxxxxxxxxxxxxxxxxx");
+-	n = 26;
+-	printf("str1: \"%s\",str2: \"%s\", n:%u", str1, str2, n);
+-	printf("; ft_strncmp(str1, str2, n)=%i; esperado -120\n",
+-		ft_strncmp(str1, str2, n));
+-	printf("\tstrncmp(str1, str2, n)=%i - - - - \n", strncmp(str1, str2, n));
+-	printf("\n\n");
+-}
+-
+-void	test_ex02(void)
+-{
+-	char			str1[500];
+-	char			str2[500];
+-	char			str3[500];
+-	char			str4[500];
+-	char			*dest;
+-	char			*dest2;
+-	int				idx;
+-
+-	printf("==== ex02: ====\n");
+-	strncpy(str1, "ABCxxxx", 300);
+-	strncpy(str2, "ABxxx", 300);
+-	str1[3] = '\0';
+-	str2[2] = '\0';
+-	printf("str1: \"%s\",str2: \"%s\"\n", str1, str2);
+-	strcpy(str3, str1);
+-	strcpy(str4, str2);
+-	dest = ft_strcat(str1, str2);
+-	printf("; ft_strcat(str1, str2)=\"%s\"\n", dest);
+-	idx = 0;
+-	while (idx < 8)
+-		printf("%c\n", dest[idx++]);
+-	if (dest != str1)
+-		printf("- - - - - FAIL - - - dest != str1 \n");
+-	dest2 = strcat(str3, str4);
+-	printf("strcat(str3, str4)=\"%s\"\n", dest2);
+-	if (strcmp(dest, dest2) != 0)
+-		printf("- - - - - FAIL - - - \n");
+-	printf("\n\n");
+-}
+-
+-void	test_case_ex03(
+-	char *str1, char *str2, unsigned int nb)
+-{
+-	unsigned int	idx;
+-
+-	printf("str1: \"%s\",str2: \"%s\", nb: %u", str1, str2, nb);
+-	printf("; ft_strncat(str1, str2, nb)=\"%s\"\n",
+-		ft_strncat(str1, str2, nb));
+-	printf("str1: \"%s\"\n", str1);
+-	idx = 0;
+-	while (idx <= nb + 1)
+-	{
+-		printf("%02u: %c\n", idx, *(str1 + idx));
+-		idx++;
+-	}
+-}
+-void	test_ex03(void)
+-{
+-	char			str1[500];
+-	char			str2[500];
+-	unsigned int	nb;
+-
+-	printf("==== ex03: ====\n");
+-	strcpy(str1, "ABCxxxxxxx");
+-	strcpy(str2, "ab");
+-	*(str1 + 3) = '\0';
+-	nb = 8;
+-	test_case_ex03(str1, str2, nb);
+-
+-	strcpy(str1, "ABCxxxxxxx");
+-	strcpy(str2, "abc");
+-	*(str1 + 3) = '\0';
+-	nb = 6;
+-	test_case_ex03(str1, str2, nb);
+-
+-	strcpy(str1, "ABCxxxxxxx");
+-	strcpy(str2, "abcd");
+-	*(str1 + 3) = '\0';
+-	nb = 5;
+-	test_case_ex03(str1, str2, nb);
+-
+-	strcpy(str1, "ABCxxxxxxx");
+-	strcpy(str2, "abcd");
+-	*(str1 + 3) = '\0';
+-	nb = 7;
+-	test_case_ex03(str1, str2, nb);
+-	printf("\n\n");
+-}
+-
+-
+-void	test_case_ex04(char *str, char *to_find, char *expected)
+-{
+-	char	*result;
+-
+-	printf("str: \"%s\",to_find: \"%s\"", str, to_find);
+-	result = ft_strstr(str, to_find);
+-	if (result == expected)
+-		printf(". . . . . SUCCESS");
+-	else
+-		printf(". . . . . FAIL!!!!!");
+-	printf("\n");
+-}
+-void	test_ex04(void)
+-{
+-	char			str1[500];
+-	char			str2[500];
+-	char			*strnull;
+-
+-	printf("==== ex04: ====\n");
+-	strcpy(str1, "ABCxxAxxxx");
+-	strcpy(str2, "AB");
+-	test_case_ex04(str1, str2, str1);
+-
+-	strcpy(str2, "x");
+-	test_case_ex04(str1, str2, &str1[3]);
+-
+-	strcpy(str2, "xx");
+-	test_case_ex04(str1, str2, &str1[3]);
+-
+-	strnull = 0;
+-	strcpy(str2, "");
+-	test_case_ex04(str1, str2, strnull);
+-
+-	strcpy(str1, "");
+-	strcpy(str2, "x");
+-	test_case_ex04(str1, str2, strnull);
+-
+-	printf("\n\n");
+-}
+-
+-void	test_case_ex05(char *str1, char *str2, unsigned int size)
+-{
+-	unsigned int	idx;
+-
+-	printf("str1: \"%s\",str2: \"%s\", size: %u", str1, str2, size);
+-	printf("; ft_strlcat(str1, str2, size)=\"%u\"\n",
+-		ft_strlcat(str1, str2, size));
+-	printf("str1: \"%s\"\n", str1);
+-	idx = 0;
+-	while (idx <= size + 1)
+-	{
+-		printf("%02u: %c\n", idx, *(str1 + idx));
+-		idx++;
+-	}
+-}
+-void	test_ex05(void)
+-{
+-	char			str1[500];
+-	char			str2[500];
+-	unsigned int	size;
+-
+-	printf("==== ex05: ====\n");
+-	strcpy(str1, "ABCxxxxxxx");
+-	strcpy(str2, "ab");
+-	*(str1 + 3) = '\0';
+-	size = 8;
+-	test_case_ex05(str1, str2, size);
+-
+-	strcpy(str1, "ABCxxxxxxx");
+-	strcpy(str2, "abcd");
+-	*(str1 + 3) = '\0';
+-	size = 6;
+-	test_case_ex05(str1, str2, size);
+-
+-	strcpy(str1, "ABCxxxxxxx");
+-	strcpy(str2, "abcd");
+-	*(str1 + 3) = '\0';
+-	size = 5;
+-	test_case_ex05(str1, str2, size);
+-
+-	strcpy(str1, "ABCxxxxxxx");
+-	strcpy(str2, "abcd");
+-	*(str1 + 3) = '\0';
+-	size = 7;
+-	test_case_ex05(str1, str2, size);
+-	printf("\n\n");
+-}
+-
+-int	main(void)
+-{
+-	test_ex00();
+-	test_ex01();
+-	test_ex02();
+-	test_ex03();
+-	test_ex04();
+-	test_ex05();
+-	return (0);
+-}
