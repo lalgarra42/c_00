@@ -1,0 +1,279 @@
+diff --git a/ccopts b/ccopts
+deleted file mode 100644
+index e78267d..0000000
+--- a/ccopts
++++ /dev/null
+@@ -1 +0,0 @@
+--Wall -Wextra -Werror 
+diff --git a/ex.h b/ex.h
+deleted file mode 100644
+index 62c6162..0000000
+--- a/ex.h
++++ /dev/null
+@@ -1,22 +0,0 @@
+-/* ************************************************************************** */
+-/*                                                                            */
+-/*                                                        :::      ::::::::   */
+-/*   ex.h                                               :+:      :+:    :+:   */
+-/*                                                    +:+ +:+         +:+     */
+-/*   By: lalgarra <lalgarra@student.42madrid.com>   +#+  +:+       +#+        */
+-/*                                                +#+#+#+#+#+   +#+           */
+-/*   Created: 2025/07/09 16:44:38 by lalgarra          #+#    #+#             */
+-/*   Updated: 2025/07/21 17:28:00 by lalgarra         ###   ########.fr       */
+-/*                                                                            */
+-/* ************************************************************************** */
+-#ifndef EX_H
+-# define EX_H
+-
+-int		ft_strlen(char *str);
+-void	ft_putstr(char *str);
+-void	ft_putnbr(int nb);
+-int		ft_atoi(char *str);
+-void	ft_putnbr_base(int nbr, char *base);
+-int		ft_atoi_base(char *str, char *base);
+-
+-#endif
+diff --git a/main.c b/main.c
+deleted file mode 100644
+index a168aec..0000000
+--- a/main.c
++++ /dev/null
+@@ -1,238 +0,0 @@
+-/* ************************************************************************** */
+-/*                                                                            */
+-/*                                                        :::      ::::::::   */
+-/*   main.c                                             :+:      :+:    :+:   */
+-/*                                                    +:+ +:+         +:+     */
+-/*   By: lalgarra <lalgarra@student.42madrid.com>   +#+  +:+       +#+        */
+-/*                                                +#+#+#+#+#+   +#+           */
+-/*   Created: 2025/07/09 16:44:38 by lalgarra          #+#    #+#             */
+-/*   Updated: 2025/07/23 18:33:30 by lalgarra         ###   ########.fr       */
+-/*                                                                            */
+-/* ************************************************************************** */
+-#include <stdio.h>
+-#include <string.h>
+-#include "ex.h"
+-
+-/*
+-
+-int     ft_strlen(char *str);
+-void    ft_putstr(char *str);
+-void    ft_putnbr(int nb);
+-
+-*/
+-void	test_ex00(void)
+-{
+-	char	str1[500];
+-
+-	printf("==== ex00: ====\n");
+-	strcpy(str1, "ABC");
+-	printf(
+-		"str1: \"%s\", ft_strlen(str1)=%i; esperado 3\n",
+-		str1, ft_strlen(str1));
+-	strcpy(str1, "Esto era un pececillo nadando...     ");
+-	printf(
+-		"str1: \"%s\", ft_strlen(str1)=%i; esperado 37\n",
+-		str1, ft_strlen(str1));
+-	strcpy(str1, "");
+-	printf(
+-		"str1: \"%s\", ft_strlen(str1)=%i; esperado 0\n",
+-		str1, ft_strlen(str1));
+-	printf("\n\n");
+-}
+-
+-void	test_ex01(void)
+-{
+-	char	str1[500];
+-
+-	printf("==== ex01: ====\n");
+-	strcpy(str1, "ABC");
+-	printf("\nstr1: \"%s\", ft_putstr(str1)\n", str1);
+-	ft_putstr(str1);
+-	strcpy(str1, "Esto era un pececillo nadando...     ");
+-	printf("\nstr1: \"%s\", ft_putstr(str1)\n", str1);
+-	ft_putstr(str1);
+-	strcpy(str1, "");
+-	printf("\nstr1: \"%s\", ft_putstr(str1)\n", str1);
+-	ft_putstr(str1);
+-	printf("\n\n");
+-}
+-
+-void	test_ex02(void)
+-{
+-	int	nb;
+-
+-	printf("==== ex02: ====\n");
+-	nb = 345;
+-	printf("\nnb: %i;", nb);
+-	ft_putnbr(nb);
+-	nb = 0;
+-	printf("\nnb: %i;", nb);
+-	ft_putnbr(nb);
+-	nb = -31456789;
+-	printf("\nnb: %i;", nb);
+-	ft_putnbr(nb);
+-
+-	nb = -1;
+-	printf("\nnb: %i;", nb);
+-	ft_putnbr(nb);
+-	nb = 1;
+-	printf("\nnb: %i;", nb);
+-	ft_putnbr(nb);
+-	nb = 2147483647;
+-	printf("\nnb: %i;", nb);
+-	ft_putnbr(nb);
+-	nb = -2147483647 - 1;
+-	printf("\nnb: %i;", nb);
+-	ft_putnbr(nb);
+-
+-	nb = -41492119;
+-	printf("\nnb: %i;", nb);
+-	ft_putnbr(nb);
+-	nb = -414921191;
+-	printf("\nnb: %i;", nb);
+-	ft_putnbr(nb);
+-	printf("\nerror 'dos puntos':\n");
+-	nb = 108996366;
+-	printf("\nnb: %i;", nb);
+-	ft_putnbr(nb);
+-	nb = 105351364;
+-	printf("\nnb: %i;", nb);
+-	ft_putnbr(nb);
+-	nb = -102763351;
+-	printf("\nnb: %i;", nb);
+-	ft_putnbr(nb);
+-	nb = -1032435144;
+-	printf("\nnb: %i;", nb);
+-	ft_putnbr(nb);
+-	nb = 1074917566;
+-	printf("\nnb: %i;", nb);
+-	ft_putnbr(nb);
+-	nb = 1043347806;
+-	printf("\nnb: %i;", nb);
+-	ft_putnbr(nb);
+-
+-	printf("\n\n");
+-}
+-
+-void	test_ex03(void)
+-{
+-	char			str1[500];
+-
+-	printf("==== ex03: ====\n");
+-	strcpy(str1, "   ---+--+1234ab567");
+-	printf("\nstr1: \"%s\", ft_atoi(str1): %i\n", str1, ft_atoi(str1));
+-	strcpy(str1, "   ---+-+1234ab567");
+-	printf("\nstr1: \"%s\", ft_atoi(str1): %i\n", str1, ft_atoi(str1));
+-	strcpy(str1, "   -123   ");
+-	printf("\nstr1: \"%s\", ft_atoi(str1): %i\n", str1, ft_atoi(str1));
+-	printf("\n\n");
+-}
+-
+-void	test_ex04(void)
+-{
+-	int		nb;
+-	char	str1[500];
+-
+-	printf("==== ex04: ====\n");
+-	nb = -254;
+-	strcpy(str1, "0123456789ABCDEF");
+-	printf("\nnb: %i; base: \"%s\"\n", nb, str1);
+-	ft_putnbr_base(nb, str1);
+-	nb = -254;
+-	strcpy(str1, "0123456789");
+-	printf("\nnb: %i; base: \"%s\"\n", nb, str1);
+-	ft_putnbr_base(nb, str1);
+-	nb = 2;
+-	strcpy(str1, "01");
+-	printf("\nnb: %i; base: \"%s\"\n", nb, str1);
+-	ft_putnbr_base(nb, str1);
+-	nb = 2;
+-	strcpy(str1, "0");
+-	printf("\nnb: %i; base: \"%s\"\n", nb, str1);
+-	ft_putnbr_base(nb, str1);
+-	strcpy(str1, "");
+-	printf("\nnb: %i; base: \"%s\"\n", nb, str1);
+-	ft_putnbr_base(nb, str1);
+-	strcpy(str1, "01230");
+-	printf("\nnb: %i; base: \"%s\"\n", nb, str1);
+-	ft_putnbr_base(nb, str1);
+-	strcpy(str1, "0123+");
+-	printf("\nnb: %i; base: \"%s\"\n", nb, str1);
+-	ft_putnbr_base(nb, str1);
+-	strcpy(str1, "0-123");
+-	printf("\nnb: %i; base: \"%s\"\n", nb, str1);
+-	ft_putnbr_base(nb, str1);
+-	strcpy(str1, "0 234");
+-	nb = 5;
+-	printf("\nnb: %i; base: \"%s\"\n", nb, str1);
+-	ft_putnbr_base(nb, str1);
+-
+-	nb = 2147483647;
+-	strcpy(str1, "0123456789ABCDEF");
+-	printf("\nnb: %i; base: \"%s\"\n", nb, str1);
+-	ft_putnbr_base(nb, str1);
+-	nb = -2147483647 - 1;
+-	strcpy(str1, "0123456789ABCDEF");
+-	printf("\nnb: %i; base: \"%s\"\n", nb, str1);
+-	ft_putnbr_base(nb, str1);
+-	printf("\n\n");
+-}
+-
+-void	test_ex05(void)
+-{
+-	char			str1[500];
+-	char			base[500];
+-
+-	printf("==== ex05: ====\n");
+-	strcpy(base, "0123456789ABCDEF");
+-	strcpy(str1, "   ---+--+FF");
+-	printf("\nbase: \"%s\", base, str1: \"%s\", ft_atoi_base(str1): %i\n", base, str1, ft_atoi_base(str1, base));
+-	strcpy(str1, "   --+--+FF");
+-	printf("\nbase: \"%s\", base, str1: \"%s\", ft_atoi_base(str1): %i\n", base, str1, ft_atoi_base(str1, base));
+-	strcpy(str1, " -7FFFFFFF");
+-	printf("\nbase: \"%s\", base, str1: \"%s\", ft_atoi_base(str1): %i\n", base, str1, ft_atoi_base(str1, base));
+-	strcpy(str1, "-80000000");
+-	printf("\nbase: \"%s\", base, str1: \"%s\", ft_atoi_base(str1): %i\n", base, str1, ft_atoi_base(str1, base));
+-	strcpy(str1, " 7FFFFFFF");
+-	printf("\nbase: \"%s\", base, str1: \"%s\", ft_atoi_base(str1): %i\n", base, str1, ft_atoi_base(str1, base));
+-	strcpy(str1, "80000000");
+-	printf("\nbase: \"%s\", base, str1: \"%s\", ft_atoi_base(str1): %i\n", base, str1, ft_atoi_base(str1, base));
+-	strcpy(str1, "   -FFFF   ");
+-	printf("\nbase: \"%s\", base, str1: \"%s\", ft_atoi_base(str1): %i\n", base, str1, ft_atoi_base(str1, base));
+-	strcpy(base, "0123456789ABCDE-");
+-	printf("\nbase: \"%s\", base, str1: \"%s\", ft_atoi_base(str1): %i\n", base, str1, ft_atoi_base(str1, base));
+-	strcpy(base, "01234567 9ABCDEF");
+-	printf("\nbase: \"%s\", base, str1: \"%s\", ft_atoi_base(str1): %i\n", base, str1, ft_atoi_base(str1, base));
+-	strcpy(base, "012+456789ABCDEF");
+-	printf("\nbase: \"%s\", base, str1: \"%s\", ft_atoi_base(str1): %i\n", base, str1, ft_atoi_base(str1, base));
+-	strcpy(base, "01234567");
+-	strcpy(str1, "   ---+--+600");
+-	printf("\nbase: \"%s\", base, str1: \"%s\", ft_atoi_base(str1): %i\n", base, str1, ft_atoi_base(str1, base));
+-	strcpy(base, "01");
+-	strcpy(str1, "  -10000000000000000000000000000000  ");
+-	printf("\nbase: \"%s\", base, str1: \"%s\", ft_atoi_base(str1): %i\n", base, str1, ft_atoi_base(str1, base));
+-	strcpy(base, "0123456789ABCDEF");
+-	strcpy(str1, "   ---+--+A");
+-	printf("\nbase: \"%s\", base, str1: \"%s\", ft_atoi_base(str1): %i\n", base, str1, ft_atoi_base(str1, base));
+-/*
+-	strcpy(base, "01234567");
+-	strcpy(str1, "   ---+--+600");
+-	printf("\nbase: \"%s\", base, str1: \"%s\", ft_atoi_base(str1): %i\n", base, str1, ft_atoi_base(str1, base));
+-	strcpy(base, "01234567");
+-	strcpy(str1, "   ---+--+600");
+-	printf("\nbase: \"%s\", base, str1: \"%s\", ft_atoi_base(str1): %i\n", base, str1, ft_atoi_base(str1, base));
+-*/
+-	printf("\n\n");
+-}
+-
+-
+-int	main(void)
+-{
+-	test_ex00();
+-	test_ex01();
+-	test_ex02();
+-	test_ex03();
+-	test_ex04();
+-	test_ex05();
+-	return (0);
+-}
